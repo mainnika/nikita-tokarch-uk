@@ -13,6 +13,15 @@
 {{ template "menu.go.tmpl" . }}
             </div>
 
+<!-- render pinned -->
+            <div class="pinned-container">
+{{ range .Pinned }}
+                <div class="pinned-post">
+{{ template "post.go.tmpl" . }}
+                </div>
+{{ end }}
+            </div>
+
         </section>
 
     </body>

@@ -1,0 +1,24 @@
+<div class="blog-post">
+
+<!-- render post header -->
+    <div class="blog-post-head">
+        <h1>{{ .Title }}</h1>
+    </div>
+
+{{ if .FImage }}
+    <div class="blog-post-head-image">
+        <img src="{{ .FImage }}"></img>
+    </div>
+{{ end }}
+
+<!-- render post -->
+    <div class="blog-post-content">
+{{ .HTML }}
+    </div>
+
+<!-- render post tailer -->
+    <div class="blog-post-tailer">
+        <h3>… … …</h3>
+    </div>
+
+</div>
