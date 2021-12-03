@@ -34,6 +34,7 @@ func (r *Renderer) init() {
 	router.NotFound(r.errorNotFound)
 
 	root := router.Group(r.Base)
+	root.Get(templates.URLRoot, r.rootRedirect)
 	root.Get(templates.URLIndex, r.index)
 	root.Get(templates.URLBlog, r.blog)
 
