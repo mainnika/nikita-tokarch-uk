@@ -9,6 +9,7 @@ import (
 	"github.com/valyala/fasthttp"
 
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/config"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/renderer"
 
 	_ "code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/templates"
 )
@@ -50,8 +51,13 @@ func main() {
 		logrus.Fatal(err)
 	}
 
+	rendererHandler := &renderer.Renderer{
+		Base:          config.Base,
+	}
+
 	httpServer := fasthttp.Server{
 		Logger:  logrus.StandardLogger(),
+		Handler: rendererHandler.Handler,
 		Name:    frontendServerIdentity,
 		GetOnly: true,
 	}
