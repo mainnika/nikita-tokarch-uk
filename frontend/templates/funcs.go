@@ -10,6 +10,9 @@ func UseFuncs() template.FuncMap {
 		"sub": func(i int) int {
 			return i - 1
 		},
+		"getJSAppURL": func() string {
+			return URLJSApp
+		},
 		"getIndexURL": func() string {
 			return URLIndex
 		},
