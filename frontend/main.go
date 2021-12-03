@@ -62,6 +62,7 @@ func main() {
 
 	rendererHandler := &renderer.Renderer{
 		GhostClient:   ghostClient,
+		ContentConfig: config.Content,
 		Base:          config.Base,
 	}
 

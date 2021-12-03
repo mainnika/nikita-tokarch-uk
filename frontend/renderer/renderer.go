@@ -6,6 +6,7 @@ import (
 	routing "github.com/jackwhelpton/fasthttp-routing/v2"
 	"github.com/valyala/fasthttp"
 
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/config"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/ghost"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/templates"
 )
@@ -13,6 +14,8 @@ import (
 // Renderer is the main handler that contains all routes handlers
 type Renderer struct {
 	GhostClient   ghost.Client
+	ContentConfig config.Content
+
 	Base string
 
 	router  *routing.Router
