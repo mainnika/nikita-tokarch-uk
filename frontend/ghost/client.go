@@ -11,6 +11,7 @@ import (
 // Ghost content data URIs:
 const (
 	ghostAPIPrefix        = "/ghost/api/v3/"
+	ghostAPIGetPosts      = ghostAPIPrefix + "content/posts/"
 	ghostAPIGetPageBySlug = ghostAPIPrefix + "content/pages/slug/%s/"
 )
 
@@ -93,6 +94,18 @@ func (g *HTTPClient) GetPageBySlug(slug string) (pages *Pages, err error) {
 	err = g.doQuery(method, pages)
 	if err != nil {
 		pages = nil
+	}
+
+	return
+}
+
+// GetPosts returns posts
+func (g *HTTPClient) GetPosts(params ...QueryParam) (posts *Posts, err error) {
+
+	posts = &Posts{}
+	err = g.doQuery(ghostAPIGetPosts, posts, params...)
+	if err != nil {
+		posts = nil
 	}
 
 	return
