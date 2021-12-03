@@ -3,8 +3,10 @@ package templates
 import (
 	"bytes"
 	"embed"
+	"fmt"
 	"html/template"
 	"io/fs"
+	"reflect"
 
 	"github.com/sirupsen/logrus"
 )
@@ -51,4 +53,35 @@ func init() {
 	}
 
 	logrus.Debugf("Templates loading complete%s", Templates.DefinedTemplates())
+}
+
+// MustLookup wraps lookup function for the root template namespace
+func MustLookup(name string) *template.Template {
+
+	tmpl := Templates.Lookup(name)
+	if tmpl == nil {
+		panic(fmt.Errorf("cannot find template %s", name))
+	}
+
+	return tmpl
+}
+
+// GetTemplateOf returns template which is mapped to the content data
+func GetTemplateOf(content interface{}) (template *template.Template) {
+
+	el := reflect.TypeOf(content)
+	numField := el.NumField()
+
+	for i := 0; i < numField; i++ {
+		field := el.Field(i)
+		tag := field.Tag
+		found, ok := tag.Lookup("template")
+		if !ok {
+			continue
+		}
+
+		return MustLookup(found)
+	}
+
+	panic(fmt.Errorf("content %v does not have a template tag", content))
 }
