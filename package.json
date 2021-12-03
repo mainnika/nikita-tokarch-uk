@@ -7,10 +7,12 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack watch",
+    "serve": "http-server -P http://127.0.0.1:8000 -c-1 out"
   },
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^6.5.1",
+    "http-server": "^14.0.0",
     "postcss-loader": "^6.2.0",
     "sass": "^1.43.4",
     "sass-loader": "^12.3.0",
