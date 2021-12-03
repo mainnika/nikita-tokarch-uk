@@ -12,6 +12,7 @@ import (
 const (
 	ghostAPIPrefix        = "/ghost/api/v3/"
 	ghostAPIGetPosts      = ghostAPIPrefix + "content/posts/"
+	ghostAPIGetPostBySlug = ghostAPIPrefix + "content/posts/slug/%s/"
 	ghostAPIGetPageBySlug = ghostAPIPrefix + "content/pages/slug/%s/"
 )
 
@@ -104,6 +105,20 @@ func (g *HTTPClient) GetPosts(params ...QueryParam) (posts *Posts, err error) {
 
 	posts = &Posts{}
 	err = g.doQuery(ghostAPIGetPosts, posts, params...)
+	if err != nil {
+		posts = nil
+	}
+
+	return
+}
+
+// GetPostBySlug returns the only one post using slug filter
+func (g *HTTPClient) GetPostBySlug(slug string, params ...QueryParam) (posts *Posts, err error) {
+
+	posts = &Posts{}
+	method := fmt.Sprintf(ghostAPIGetPostBySlug, slug)
+
+	err = g.doQuery(method, posts, params...)
 	if err != nil {
 		posts = nil
 	}
