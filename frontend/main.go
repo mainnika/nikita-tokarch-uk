@@ -9,6 +9,8 @@ import (
 	"github.com/valyala/fasthttp"
 
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/config"
+
+	_ "code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/templates"
 )
 
 var Version = "nightly"
