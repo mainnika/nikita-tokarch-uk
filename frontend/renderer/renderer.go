@@ -29,6 +29,7 @@ func (r *Renderer) init() {
 	router := routing.New()
 
 	router.Use(r.useTemplateWriter)
+	router.NotFound(r.errorNotFound)
 
 	r.router = router
 	r.handler = router.HandleRequest
