@@ -8,5 +8,15 @@ module.exports = {
     path: path.resolve(__dirname, 'out'),
   },
   module: {
+    rules: [
+      {
+        test: /\.(s?css)$/,
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader'
+        }]
+      },
+    ],
   },
 };
