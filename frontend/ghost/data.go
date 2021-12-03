@@ -3,12 +3,14 @@ package ghost
 import "html/template"
 
 // Pages are ghost pages data
+//easyjson:json
 type Pages struct {
 	Pages []Post `json:"pages"`
 	Meta  Meta   `json:"meta"`
 }
 
 // Post contains ghost post data
+//easyjson:json
 type Post struct {
 	ID     string        `json:"id"`
 	UUID   string        `json:"uuid"`
@@ -18,11 +20,13 @@ type Post struct {
 }
 
 // Meta contains ghost result metadata
+//easyjson:json
 type Meta struct {
 	Pagination Pagination `json:"pagination"`
 }
 
 // Pagination contains ghost pagination data
+//easyjson:json
 type Pagination struct {
 	Page  int `json:"page"`
 	Limit int `json:"limit"`
@@ -31,6 +35,7 @@ type Pagination struct {
 }
 
 // Posts are ghost posts data
+//easyjson:json
 type Posts struct {
 	Posts []Post `json:"posts"`
 	Meta  Meta   `json:"meta"`
