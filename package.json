@@ -1,0 +1,14 @@
+{
+  "name": "nikita-tokarch-uk",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "author": "",
+  "scripts": {
+  },
+  "license": "MIT",
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}
