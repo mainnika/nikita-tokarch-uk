@@ -14,6 +14,7 @@ import (
 // Static go-templates source
 //go:embed blog.go.tmpl
 //go:embed error.go.tmpl
+//go:embed head.go.tmpl
 //go:embed index.go.tmpl
 var content embed.FS
 
