@@ -10,6 +10,7 @@ import (
 )
 
 // Static go-templates source
+//go:embed error.go.tmpl
 var content embed.FS
 
 // List of compiled go-templates
