@@ -5,6 +5,7 @@ import (
 
 	routing "github.com/jackwhelpton/fasthttp-routing/v2"
 	"github.com/valyala/fasthttp"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/templates"
 )
 
 // Renderer is the main handler that contains all routes handlers
@@ -32,6 +33,7 @@ func (r *Renderer) init() {
 	router.Use(r.useErrorHandler)
 	router.NotFound(r.errorNotFound)
 
+	root.Get(templates.URLBlog, r.blog)
 	r.router = router
 	r.handler = router.HandleRequest
 }
