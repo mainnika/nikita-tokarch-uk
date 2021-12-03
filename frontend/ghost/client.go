@@ -8,6 +8,9 @@ import (
 	"github.com/mailru/easyjson"
 	"github.com/valyala/fasthttp"
 )
+
+var _ Client = (*HTTPClient)(nil)
+
 // Ghost content data URIs:
 const (
 	ghostAPIPrefix        = "/ghost/api/v3/"

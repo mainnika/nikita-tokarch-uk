@@ -3,12 +3,14 @@ package main
 import (
 	"fmt"
 	"net"
+	"time"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"github.com/valyala/fasthttp"
 
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/config"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/ghost"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/renderer"
 
 	_ "code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/templates"
@@ -51,7 +53,15 @@ func main() {
 		logrus.Fatal(err)
 	}
 
+	ghostClient := &ghost.Client{
+		Addr:         config.Content.Backend,
+		ContentKey:   config.Content.Key,
+		Secured:      true,
+		QueryTimeout: time.Second,
+	}
+
 	rendererHandler := &renderer.Renderer{
+		GhostClient:   ghostClient,
 		Base:          config.Base,
 	}
 
