@@ -10,7 +10,8 @@ import (
 )
 // Ghost content data URIs:
 const (
-	ghostAPIPrefix = "/ghost/api/v3/"
+	ghostAPIPrefix        = "/ghost/api/v3/"
+	ghostAPIGetPageBySlug = ghostAPIPrefix + "content/pages/slug/%s/"
 )
 
 // HTTPClient implements the ghost http client
@@ -79,6 +80,20 @@ func (g *HTTPClient) doQuery(method string, v easyjson.Unmarshaler, params ...Qu
 	}
 
 	err = easyjson.Unmarshal(resBytes, v)
+
+	return
+}
+
+// GetPageBySlug returns the only one page using slug filter
+func (g *HTTPClient) GetPageBySlug(slug string) (pages *Pages, err error) {
+
+	pages = &Pages{}
+	method := fmt.Sprintf(ghostAPIGetPageBySlug, slug)
+
+	err = g.doQuery(method, pages)
+	if err != nil {
+		pages = nil
+	}
 
 	return
 }
