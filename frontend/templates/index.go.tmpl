@@ -33,6 +33,20 @@
 {{ end }}
             </div>
 
+<!-- render bottom pagination -->
+{{ if (gt .Pagination.Total 1) }}
+            <div class="pagination-container-bottom">
+            <ul>
+                <li>
+                    {{ .Pagination.Page }} ←
+                </li>
+                <li>
+                    <a href="{{ getBlogURL }}?page={{ add .Pagination.Page }}">{{ add .Pagination.Page }}</a>
+                </li>
+            </ul>
+            </div>
+{{ end }}
+
         </section>
 
     </body>

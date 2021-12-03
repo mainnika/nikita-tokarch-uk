@@ -13,12 +13,58 @@
 {{ template "menu.go.tmpl" . }}
             </div>
 
+<!-- render top pagination -->
+{{ if (gt .Pagination.Page 1) }}
+            <div class="pagination-container-top">
+                <ul>
+
+    {{ if (gt .Pagination.Page 1) }}
+                    <li>
+                        <a href="{{ getBlogURL }}?page={{ sub .Pagination.Page }}">{{ sub .Pagination.Page }}</a>
+                    </li>
+    {{ end }}
+                    <li>
+                        {{ .Pagination.Page }} ←
+                    </li>
+    {{ if (lt .Pagination.Page .Pagination.Total) }}
+                    <li>
+                        <a href="{{ getBlogURL }}?page={{ add .Pagination.Page }}">{{ add .Pagination.Page }}</a>
+                    </li>
+    {{ end }}
+
+                </ul>
+            </div>
+{{ end }}
+
 <!-- render posts -->
             <div class="posts-container">
 {{ range .Posts }}
 {{ template "post.go.tmpl" . }}
 {{ end }}
             </div>
+
+<!-- render bottom pagination -->
+{{ if (gt .Pagination.Total 1) }}
+            <div class="pagination-container-bottom">
+            <ul>
+
+{{ if (gt .Pagination.Page 1) }}
+                <li>
+                    <a href="{{ getBlogURL }}?page={{ sub .Pagination.Page }}">{{ sub .Pagination.Page }}</a>
+                </li>
+{{ end }}
+                <li>
+                    {{ .Pagination.Page }} ←
+                </li>
+{{ if (lt .Pagination.Page .Pagination.Total) }}
+                <li>
+                    <a href="{{ getBlogURL }}?page={{ add .Pagination.Page }}">{{ add .Pagination.Page }}</a>
+                </li>
+{{ end }}
+
+            </ul>
+            </div>
+{{ end }}
 
         </section>
 
