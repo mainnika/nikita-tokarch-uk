@@ -25,6 +25,7 @@ var Templates *template.Template
 func init() {
 
 	Templates = template.New("")
+	Templates.Funcs(UseFuncs())
 
 	tmplNames, err := fs.Glob(content, "*.go.tmpl")
 	if err != nil {
