@@ -13,6 +13,8 @@ import (
 
 var Version = "nightly"
 
+const frontendServerIdentity = "Microsoft-IIS/6.0"
+
 func main() {
 
 	if viper.GetBool("version") {
@@ -48,6 +50,7 @@ func main() {
 
 	httpServer := fasthttp.Server{
 		Logger:  logrus.StandardLogger(),
+		Name:    frontendServerIdentity,
 		GetOnly: true,
 	}
 
