@@ -33,7 +33,10 @@ func (r *Renderer) init() {
 	router.Use(r.useErrorHandler)
 	router.NotFound(r.errorNotFound)
 
+	root := router.Group(r.Base)
+	root.Get(templates.URLIndex, r.index)
 	root.Get(templates.URLBlog, r.blog)
+
 	r.router = router
 	r.handler = router.HandleRequest
 }
