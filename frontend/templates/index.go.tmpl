@@ -24,5 +24,16 @@
 
         </section>
 
+        <section id="this-is-blog" class="root-container blog-container">
+
+<!-- render posts -->
+            <div class="posts-container">
+{{ range .Posts }}
+{{ template "post.go.tmpl" . }}
+{{ end }}
+            </div>
+
+        </section>
+
     </body>
 </html>
