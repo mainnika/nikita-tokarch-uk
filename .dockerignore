@@ -1,0 +1,9 @@
+*
+!nginx
+!frontend
+!web
+!go.mod
+!go.sum
+!package-lock.json
+!package.json
+!webpack.config.js
