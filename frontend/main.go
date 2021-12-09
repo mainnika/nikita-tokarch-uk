@@ -53,7 +53,7 @@ func main() {
 		logrus.Fatal(err)
 	}
 
-	ghostClient := &ghost.Client{
+	ghostClient := &ghost.HTTPClient{
 		Addr:         config.Content.Backend,
 		ContentKey:   config.Content.Key,
 		Secured:      true,
