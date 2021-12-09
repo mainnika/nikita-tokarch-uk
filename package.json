@@ -1,0 +1,28 @@
+{
+  "name": "nikita-tokarch-uk",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "author": "",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack watch",
+    "serve": "http-server -P http://127.0.0.1:8000 -c-1 out"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^6.5.1",
+    "http-server": "^14.0.0",
+    "postcss-loader": "^6.2.0",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.3.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.63.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.4.0"
+  },
+  "dependencies": {
+    "bootstrap-icons": "^1.7.1",
+    "code-prettify": "^0.1.0"
+  }
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en_us">
+
+<!-- render head -->
+{{ template "head.go.tmpl" . }}
+
+    <body>
+
+        <section class="root-container welcome-container">
+
+<!-- render menu -->
+            <div class="menu-container">
+{{ template "menu.go.tmpl" . }}
+            </div>
+
+<!-- render pinned -->
+            <div class="pinned-container">
+{{ range .Pinned }}
+                <div class="pinned-post">
+{{ template "post.go.tmpl" . }}
+                </div>
+{{ end }}
+            </div>
+
+            <div class="scroll-container">
+                <a href="#this-is-blog"><span></span></a>
+            </div>
+
+        </section>
+
+        <section id="this-is-blog" class="root-container blog-container">
+
+<!-- render posts -->
+            <div class="posts-container">
+{{ range .Posts }}
+{{ template "post.go.tmpl" . }}
+{{ end }}
+            </div>
+
+<!-- render bottom pagination -->
+{{ if (gt .Pagination.Total 1) }}
+            <div class="pagination-container-bottom">
+            <ul>
+                <li>
+                    {{ .Pagination.Page }} ←
+                </li>
+                <li>
+                    <a href="{{ getBlogURL }}?page={{ add .Pagination.Page }}">{{ add .Pagination.Page }}</a>
+                </li>
+            </ul>
+            </div>
+{{ end }}
+
+        </section>
+
+    </body>
+</html>
