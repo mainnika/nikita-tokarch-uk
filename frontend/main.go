@@ -54,9 +54,9 @@ func main() {
 	}
 
 	ghostClient := &ghost.HTTPClient{
-		Addr:         config.Content.Backend,
+		Addr:         config.Content.Backend.Addr,
+		Secured:      config.Content.Backend.Secured,
 		ContentKey:   config.Content.Key,
-		Secured:      true,
 		QueryTimeout: time.Second,
 	}
 
