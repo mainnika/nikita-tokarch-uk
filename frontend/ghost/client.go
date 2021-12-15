@@ -25,6 +25,7 @@ type HTTPClient struct {
 	ContentKey   string
 	Addr         string
 	Secured      bool
+	Headers      map[string]string
 
 	client *fasthttp.HostClient
 
@@ -63,6 +64,9 @@ func (g *HTTPClient) doQuery(method string, v easyjson.Unmarshaler, params ...Qu
 		uri.SetScheme("https")
 	}
 
+	for hKey, hValue := range g.Headers {
+		req.Header.Add(hKey, hValue)
+	}
 	for _, param := range params {
 		param.Apply(&req.Header, uri.QueryArgs())
 	}
@@ -78,7 +82,6 @@ func (g *HTTPClient) doQuery(method string, v easyjson.Unmarshaler, params ...Qu
 	resBytes := res.Body()
 	if resBytes == nil && v == nil {
 		return fmt.Errorf("nothing to unmarshal")
-
 	}
 	if resBytes == nil {
 		return
