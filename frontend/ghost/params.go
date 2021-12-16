@@ -1,48 +1,39 @@
 package ghost
 
-import (
-	"strconv"
-
-	"github.com/valyala/fasthttp"
-)
-
-// QueryParam is the generic query param applier
-type QueryParam interface {
-	Apply(headers *fasthttp.RequestHeader, args *fasthttp.Args)
+// Params are generics query argument
+type Params struct {
+	Limit int
+	Page  int
 }
 
-// QueryLimit returns limit param query
-func QueryLimit(limit int) queryLimit {
-	return queryLimit{limit: limit}
-}
+// Modifier function takes params and makes some changes
+type Modifier func(params Params) Params
 
-// QueryPage returns page param query
-func QueryPage(page int) queryPage {
-	return queryPage{page: page}
-}
+// Modifiers is a list of modifier
+type Modifiers []Modifier
 
-// queryLimit implements the limit param query applier
-type queryLimit struct{ limit int }
+// Apply function modifies params
+func (ms Modifiers) Apply(params Params) Params {
 
-// Apply applies the limit argument to the query
-func (ql queryLimit) Apply(headers *fasthttp.RequestHeader, args *fasthttp.Args) {
-
-	if ql.limit == 0 {
-		return
+	for _, m := range ms {
+		params = m(params)
 	}
 
-	args.Add("limit", strconv.Itoa(ql.limit))
+	return params
 }
 
-// queryPage implements the page param query applier
-type queryPage struct{ page int }
-
-// Apply applies the page argument to the query
-func (qp queryPage) Apply(headers *fasthttp.RequestHeader, args *fasthttp.Args) {
-
-	if qp.page < 2 {
-		return
+// WithLimit modifier setups the limit
+func WithLimit(limit int) Modifier {
+	return func(params Params) Params {
+		params.Limit = limit
+		return params
 	}
+}
 
-	args.Add("page", strconv.Itoa(qp.page))
+// WithPage modifier setups the page
+func WithPage(page int) Modifier {
+	return func(params Params) Params {
+		params.Page = page
+		return params
+	}
 }
