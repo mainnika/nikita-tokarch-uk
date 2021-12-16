@@ -3,15 +3,15 @@ package content
 import (
 	"fmt"
 
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/ghost"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/data"
 )
 
 // Blog content data
 type Blog struct {
 	_ interface{} `template:"blog.go.tmpl"`
-	ghost.Meta
-	Pinned []ghost.Post
-	Posts  []ghost.Post
+	data.Meta
+	Pinned []data.Post
+	Posts  []data.Post
 }
 
 // Title returns blog content title

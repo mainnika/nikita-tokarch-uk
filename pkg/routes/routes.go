@@ -1,4 +1,4 @@
-package renderer
+package routes
 
 import (
 	"sync"
@@ -6,13 +6,13 @@ import (
 	routing "github.com/jackwhelpton/fasthttp-routing/v2"
 	"github.com/valyala/fasthttp"
 
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/config"
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/ghost"
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/templates"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/config"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
 )
 
-// Renderer is the main handler that contains all routes handlers
-type Renderer struct {
+// Routes is the main handler that contains all routes handlers
+type Routes struct {
 	GhostClient   ghost.Client
 	ContentConfig config.Content
 
@@ -25,13 +25,13 @@ type Renderer struct {
 }
 
 // Handler invokes the lazy once-initializer and then does the request
-func (r *Renderer) Handler(ctx *fasthttp.RequestCtx) {
+func (r *Routes) Handler(ctx *fasthttp.RequestCtx) {
 	r.initOnce.Do(r.init)
 	r.handler(ctx)
 }
 
 // init has the renderer initialization
-func (r *Renderer) init() {
+func (r *Routes) init() {
 
 	router := routing.New()
 

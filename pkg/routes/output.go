@@ -1,11 +1,12 @@
-package renderer
+package routes
 
 import (
 	"io"
 
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/templates"
 	routing "github.com/jackwhelpton/fasthttp-routing/v2"
 	"github.com/valyala/fasthttp"
+
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
 )
 
 var _ routing.DataWriter = (*TemplateWriter)(nil)
@@ -30,7 +31,7 @@ func (tw *TemplateWriter) Write(w io.Writer, content interface{}) error {
 }
 
 // useTemplateWriter is the routing middleware to set the default data writer
-func (r *Renderer) useTemplateWriter(c *routing.Context) (err error) {
+func (r *Routes) useTemplateWriter(c *routing.Context) (err error) {
 
 	c.SetDataWriter(staticWriter)
 

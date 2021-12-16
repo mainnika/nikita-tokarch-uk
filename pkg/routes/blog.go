@@ -1,18 +1,22 @@
-package renderer
+package routes
 
 import (
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/content"
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/ghost"
 	routing "github.com/jackwhelpton/fasthttp-routing/v2"
+
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/content"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/params"
 )
 
 // blog handler renders blog data
-func (r *Renderer) blog(c *routing.Context) (err error) {
+func (r *Routes) blog(c *routing.Context) (err error) {
 
 	postsPerPage := r.ContentConfig.PostsPerPage
 	currentPage := c.QueryArgs().GetUintOrZero("page")
 
-	latestPosts, err := r.GhostClient.GetPosts(ghost.QueryLimit(postsPerPage), ghost.QueryPage(currentPage))
+	latestPosts, err := r.GhostClient.GetPosts(
+		params.WithLimit(postsPerPage),
+		params.WithPage(currentPage),
+	)
 	if err != nil {
 		return
 	}

@@ -22,7 +22,7 @@ RUN --mount=type=cache,id=gopath,target=${GOPATH} \
     go build \
       -o nikita-tokarch-uk-frontend \
       -ldflags "-X main.Version=${APP_VERSION}" \
-      code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend
+      code.tokarch.uk/mainnika/nikita-tokarch-uk/cmd/renderer
 
 FROM registry.access.redhat.com/ubi8/ubi as js-builder
 

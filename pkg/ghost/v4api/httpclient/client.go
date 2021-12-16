@@ -1,4 +1,4 @@
-package ghost
+package httpclient
 
 import (
 	"fmt"
@@ -8,9 +8,13 @@ import (
 
 	"github.com/mailru/easyjson"
 	"github.com/valyala/fasthttp"
+
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/data"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/params"
 )
 
-var _ Client = (*HTTPClient)(nil)
+var _ ghost.Client = (*HTTPClient)(nil)
 
 // Ghost content data URIs:
 const (
@@ -46,7 +50,7 @@ func (g *HTTPClient) setupClient() {
 }
 
 // doQuery does the method and unmarshals the result into the easyjson Unmarshaler
-func (g *HTTPClient) doQuery(method string, v easyjson.Unmarshaler, params Params) (err error) {
+func (g *HTTPClient) doQuery(path string, v easyjson.Unmarshaler, params params.Params) (err error) {
 
 	g.setupClientOnce.Do(g.setupClient)
 
@@ -57,7 +61,7 @@ func (g *HTTPClient) doQuery(method string, v easyjson.Unmarshaler, params Param
 		fasthttp.ReleaseRequest(req)
 	}()
 
-	g.setupRequest(method, req)
+	g.setupRequest(path, req)
 	g.applyParams(params, req)
 
 	err = g.client.DoTimeout(req, res, g.QueryTimeout)
@@ -103,7 +107,7 @@ func (g *HTTPClient) setupRequest(path string, req *fasthttp.Request) {
 }
 
 // applyParams function additionally configure the http request using params
-func (g *HTTPClient) applyParams(p Params, req *fasthttp.Request) (err error) {
+func (g *HTTPClient) applyParams(p params.Params, req *fasthttp.Request) (err error) {
 
 	uri := req.URI()
 
@@ -121,10 +125,10 @@ func (g *HTTPClient) applyParams(p Params, req *fasthttp.Request) (err error) {
 }
 
 // GetPageBySlug returns the only one page using slug filter
-func (g *HTTPClient) GetPageBySlug(slug string) (pages *Pages, err error) {
+func (g *HTTPClient) GetPageBySlug(slug string, queryModifiers ...params.Modifier) (pages *data.Pages, err error) {
 
-	pages = &Pages{}
-	defaultParams := Params{}
+	pages = &data.Pages{}
+	defaultParams := params.Params{}
 	method := fmt.Sprintf(ghostAPIGetPageBySlug, slug)
 
 	err = g.doQuery(method, pages, defaultParams)
@@ -136,11 +140,11 @@ func (g *HTTPClient) GetPageBySlug(slug string) (pages *Pages, err error) {
 }
 
 // GetPosts returns posts
-func (g *HTTPClient) GetPosts(queryModifiers ...Modifier) (posts *Posts, err error) {
+func (g *HTTPClient) GetPosts(queryModifiers ...params.Modifier) (posts *data.Posts, err error) {
 
-	posts = &Posts{}
-	defaultParams := Params{}
-	combinedParams := Modifiers(queryModifiers).Apply(defaultParams)
+	posts = &data.Posts{}
+	defaultParams := params.Params{}
+	combinedParams := params.Modifiers(queryModifiers).Apply(defaultParams)
 
 	err = g.doQuery(ghostAPIGetPosts, posts, combinedParams)
 	if err != nil {
@@ -151,11 +155,11 @@ func (g *HTTPClient) GetPosts(queryModifiers ...Modifier) (posts *Posts, err err
 }
 
 // GetPostBySlug returns the only one post using slug filter
-func (g *HTTPClient) GetPostBySlug(slug string, queryModifiers ...Modifier) (posts *Posts, err error) {
+func (g *HTTPClient) GetPostBySlug(slug string, queryModifiers ...params.Modifier) (posts *data.Posts, err error) {
 
-	posts = &Posts{}
-	defaultParams := Params{}
-	combinedParams := Modifiers(queryModifiers).Apply(defaultParams)
+	posts = &data.Posts{}
+	defaultParams := params.Params{}
+	combinedParams := params.Modifiers(queryModifiers).Apply(defaultParams)
 	method := fmt.Sprintf(ghostAPIGetPostBySlug, slug)
 
 	err = g.doQuery(method, posts, combinedParams)

@@ -1,4 +1,4 @@
-package ghost
+package params
 
 // Params are generics query argument
 type Params struct {
