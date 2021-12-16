@@ -56,17 +56,7 @@ func (g *HTTPClient) doQuery(method string, v easyjson.Unmarshaler, params ...Qu
 		fasthttp.ReleaseRequest(req)
 	}()
 
-	uri := req.URI()
-	uri.SetHost(g.Addr)
-	uri.SetPath(method)
-	uri.QueryArgs().Add("key", g.ContentKey)
-	if g.client.IsTLS {
-		uri.SetScheme("https")
-	}
-
-	for hKey, hValue := range g.Headers {
-		req.Header.Add(hKey, hValue)
-	}
+	g.setupRequest(method, req)
 	for _, param := range params {
 		param.Apply(&req.Header, uri.QueryArgs())
 	}
@@ -90,6 +80,27 @@ func (g *HTTPClient) doQuery(method string, v easyjson.Unmarshaler, params ...Qu
 	err = easyjson.Unmarshal(resBytes, v)
 
 	return
+}
+
+// setupRequest does the necessary initial configuration to the http request
+func (g *HTTPClient) setupRequest(path string, req *fasthttp.Request) {
+
+	uri := req.URI()
+
+	scheme := "http"
+	if g.Secured {
+		scheme = "https"
+	}
+
+	uri.SetHost(g.Addr)
+	uri.SetPath(path)
+	uri.SetScheme(scheme)
+
+	uri.QueryArgs().Add("key", g.ContentKey)
+
+	for hKey, hValue := range g.Headers {
+		req.Header.Add(hKey, hValue)
+	}
 }
 
 // GetPageBySlug returns the only one page using slug filter
