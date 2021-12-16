@@ -2,6 +2,7 @@ package templates
 
 import "html/template"
 
+// UseFuncs returns a func map with template helpers functions
 func UseFuncs() template.FuncMap {
 	return template.FuncMap{
 		"add": func(i int) int {
