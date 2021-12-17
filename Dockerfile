@@ -16,7 +16,8 @@ RUN --mount=type=cache,id=gopath,target=${GOPATH} \
 
 ARG APP_VERSION=containerized
 
-COPY frontend frontend
+COPY cmd cmd
+COPY pkg pkg
 
 RUN --mount=type=cache,id=gopath,target=${GOPATH} \
     go build \

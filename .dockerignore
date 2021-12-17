@@ -1,6 +1,7 @@
 *
+!cmd
 !nginx
-!frontend
+!pkg
 !web
 !go.mod
 !go.sum
