@@ -1,0 +1,86 @@
+def HELM_DOWNLOAD_URL = "https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz"
+def WS_BIN = ".bin"
+def WS_SCM = ".scm"
+
+pipeline {
+    agent { label "k8s" }
+
+    parameters {
+        string(
+            name: "VERSION",
+            defaultValue: "main",
+            description: "version to release",
+        )
+        string(
+            name: "RELEASE_NAME",
+            defaultValue: "nikita-tokarch-uk",
+            description: "release name",
+        )
+        string(
+            name: "RELEASE_NAMESPACE",
+            defaultValue: "nikita-tokarch-uk",
+            description: "release namespace",
+        )
+        password(
+            name: "CREDENTIALS_ID",
+            defaultValue: "nikita-tokarch-uk-config",
+            description: "release configuration",
+        )
+    }
+
+    stages {
+        stage("Prepare Tools") {
+            when {
+                not {
+                    expression { return fileExists("${WS_BIN}/linux-amd64/helm") }
+                }
+            }
+            steps {
+                dir("${WS_BIN}") {
+                    sh """
+                        curl -fsSL -O "${HELM_DOWNLOAD_URL}";
+                        tar xfz *;
+                        rm -f *;
+                        ls -lah ./linux-amd64/helm;
+                    """
+                }
+            }
+        }
+        stage("Checkout") {
+            steps {
+                dir("${WS_SCM}") {
+                    deleteDir()
+                    checkout scm
+                }
+            }
+        }
+        stage("Make chart package") {
+            steps {
+                dir("${WS_SCM}/chart.tgz") {
+                    sh """
+                        "${env.WORKSPACE}/${WS_BIN}/linux-amd64/helm" package ../chart \
+                          --app-version ${params.VERSION} \
+                          ;
+                    """
+                }
+            }
+        }
+        stage("Release packaged chart") {
+            steps {
+                withCredentials([file(credentialsId: "${params.CREDENTIALS_ID}", variable: "RELEASE_CONFIG")]) {
+                    dir("${WS_SCM}/chart.tgz") {
+                        sh """
+                            "${env.WORKSPACE}/${WS_BIN}/linux-amd64/helm" upgrade ${params.RELEASE_NAME} * \
+                              --namespace ${params.RELEASE_NAMESPACE} \
+                              --create-namespace \
+                              --dependency-update \
+                              --reset-values \
+                              -f "\$RELEASE_CONFIG" \
+                              ;
+                        """
+                    }
+                }
+            }
+        }
+    }
+}
