@@ -85,3 +85,17 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+
+      - name: Trigger release job
+        if: ${{ success() && github.ref_name == 'main' && github.event_name != 'pull_request' && !github.event.repository.private }}
+        uses: toptal/jenkins-job-trigger-action@master
+        with:
+          jenkins_url: ${{ secrets.JENKINS_URL }}
+          jenkins_user: ${{ secrets.JENKINS_USER }}
+          jenkins_token: ${{ secrets.JENKINS_TOKEN }}
+          job_name: "nikita-tokarch-uk/job/make-a-release"
+          job_params: |
+            {
+              "VERSION": "${{ steps.calver.outputs.current }}"
+            }
+          job_timeout: "300" # Default 30 sec. (optional)
