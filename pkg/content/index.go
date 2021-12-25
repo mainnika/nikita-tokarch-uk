@@ -1,15 +1,13 @@
 package content
 
-import (
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/ghost"
-)
+import "code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/data"
 
 // Index content data
 type Index struct {
 	_ interface{} `template:"index.go.tmpl"`
-	ghost.Meta
-	Pinned []ghost.Post
-	Posts  []ghost.Post
+	data.Meta
+	Pinned []data.Post
+	Posts  []data.Post
 }
 
 // Title returns index title

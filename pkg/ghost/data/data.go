@@ -1,4 +1,6 @@
-package ghost
+package data
+
+//go:generate $GOPATH/bin/easyjson -pkg -no_std_marshalers
 
 import "html/template"
 

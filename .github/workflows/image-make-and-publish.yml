@@ -3,7 +3,9 @@ name: Docker
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: 
+      - 'main'
+      - 'develop'
 
 env:
   REGISTRY: ghcr.io
@@ -22,6 +24,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up Python 
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
       - name: Install cosign
         if: github.event_name != 'pull_request'
         uses: sigstore/cosign-installer@main
@@ -37,17 +44,38 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get date as semver
+        id: calver
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          python -c "
+          from datetime import datetime, timedelta
+          from os import environ
+          ref = environ['REF_NAME']
+          now = datetime.now()
+          date = now.strftime('%y.%m.%d')
+          delta = timedelta(hours=now.hour,minutes=now.minute,seconds=now.second)
+          print(f'::set-output name=current::{date}-{ref}.{delta.seconds}')
+          "
+
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ steps.calver.outputs.current }}
+            type=raw,value=${{ github.ref_name }}
+            type=sha
 
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v2
         with:
           context: .
+          build-args: |
+            APP_VERSION=${{ steps.calver.outputs.current }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

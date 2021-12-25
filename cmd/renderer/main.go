@@ -9,11 +9,10 @@ import (
 	"github.com/spf13/viper"
 	"github.com/valyala/fasthttp"
 
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/config"
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/ghost"
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/renderer"
-
-	_ "code.tokarch.uk/mainnika/nikita-tokarch-uk/frontend/templates"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/config"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/v4api/httpclient"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/routes"
+	_ "code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
 )
 
 var Version = "nightly"
@@ -53,14 +52,15 @@ func main() {
 		logrus.Fatal(err)
 	}
 
-	ghostClient := &ghost.HTTPClient{
-		Addr:         config.Content.Backend,
+	ghostClient := &httpclient.HTTPClient{
+		Addr:         config.Content.Backend.Addr,
+		Secured:      config.Content.Backend.Secured,
+		Headers:      config.Content.Backend.Headers,
 		ContentKey:   config.Content.Key,
-		Secured:      true,
 		QueryTimeout: time.Second,
 	}
 
-	rendererHandler := &renderer.Renderer{
+	apiRoutes := &routes.Routes{
 		GhostClient:   ghostClient,
 		ContentConfig: config.Content,
 		Base:          config.Base,
@@ -68,7 +68,7 @@ func main() {
 
 	httpServer := fasthttp.Server{
 		Logger:  logrus.StandardLogger(),
-		Handler: rendererHandler.Handler,
+		Handler: apiRoutes.Handler,
 		Name:    frontendServerIdentity,
 		GetOnly: true,
 	}

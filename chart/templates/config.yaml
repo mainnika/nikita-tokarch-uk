@@ -1,0 +1,10 @@
+{{- if .Values.config -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "nikita-tokarch-uk.fullname" . }}-config"
+  labels:
+    {{- include "nikita-tokarch-uk.labels" . | nindent 4 }}
+data:
+  {{- toYaml .Values.config | nindent 2 }}
+{{- end }}
