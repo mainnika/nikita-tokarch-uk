@@ -1,0 +1,81 @@
+@use "./const.scss" as *;
+
+.menu-container {
+    background-color: $menu-background-color;
+    border-bottom-style: solid;
+    border-bottom-width: 0.5em;
+    border-color: $menu-accent-color;
+    padding-bottom: 0.5em;
+    z-index: 2;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    font-family: $menu-font;
+    font-size: $menu-font-size;
+}
+
+.menu > * {
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    padding-bottom: 0.15em;
+    border-color: $main-color;
+}
+.menu a:link,
+.menu a:visited {
+    color: $text-color;
+    text-decoration: none;
+}
+.menu a:hover,
+.menu a:active {
+    color: $text-color;
+    text-decoration: none;
+    border-bottom-width: 0.15em;
+    border-bottom-style: solid;
+}
+
+.menu-logo span {
+    color: $main-color;
+    font-size: $menu-logo-font-size;
+}
+
+.menu-nav {
+    display: flex;
+    list-style: none;
+}
+.menu-nav > li::before {
+    content: "";
+    font-size: $menu-logo-font-size;
+}
+.menu-nav > li {
+    padding-left: 1.3em;
+}
+
+@media all and (max-width: 1024px) {
+    .menu-nav {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .menu-nav > li.menu-nav-li1::before {
+        display: inline;
+    }
+    .menu-nav > li::before {
+        display: none;
+    }
+}
+
+@media all and (max-width: 512px) {
+    .menu {
+        flex-direction: column;
+    }
+    .menu-nav {
+        margin-top: 0.3em;
+    }
+    .menu-nav > li.menu-nav-li1::before {
+        display: none;
+    }
+}

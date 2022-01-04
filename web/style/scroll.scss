@@ -1,0 +1,39 @@
+@use "./const.scss" as *;
+
+.scroll-container {
+    z-index: 0;
+    height: 64px;
+    margin-top: auto;
+}
+.scroll-container a {
+    left: 50%;
+    margin-top: -32px;
+    position: absolute;
+}
+.scroll-container a span {
+    position: absolute;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    margin-top: -36px;
+    border-left: 1px solid $main-color;
+    border-bottom: 1px solid $main-color;
+    transform: rotate(-45deg);
+    animation: scroll-keyframes 1.5s infinite;
+    box-sizing: border-box;
+}
+
+@keyframes scroll-keyframes {
+    0% {
+        transform: rotate(-45deg) translate(0, 0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(-45deg) translate(-20px, 20px);
+        opacity: 0;
+    }
+}
