@@ -72,8 +72,8 @@ func MustLookup(name string) *template.Template {
 	return tmpl
 }
 
-// GetTemplateOf returns template which is mapped to the content data
-func GetTemplateOf(content interface{}) (template *template.Template) {
+// MustGetTemplateOf returns template which is mapped to the content data
+func MustGetTemplateOf(content interface{}) (template *template.Template) {
 
 	el := reflect.TypeOf(content)
 	numField := el.NumField()
