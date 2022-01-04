@@ -12,7 +12,7 @@ import (
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/config"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/v4api/httpclient"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/routes"
-	_ "code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
 )
 
 var Version = "nightly"
@@ -48,6 +48,11 @@ func main() {
 		panic("no address given")
 	}
 	netListener, err := net.Listen(netw, addr)
+	if err != nil {
+		logrus.Fatal(err)
+	}
+
+	err = templates.Load()
 	if err != nil {
 		logrus.Fatal(err)
 	}

@@ -24,14 +24,14 @@ var content embed.FS
 var Templates *template.Template
 
 // Load embeded templates
-func init() {
+func Load() (err error) {
 
 	Templates = template.New("")
 	Templates.Funcs(UseFuncs())
 
 	tmplNames, err := fs.Glob(content, "*.go.tmpl")
 	if err != nil {
-		panic(err)
+		return fmt.Errorf("cannot match templates names using glob, %w", err)
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -42,21 +42,23 @@ func init() {
 
 		tmplContent, err := content.Open(name)
 		if err != nil {
-			panic(err)
+			return fmt.Errorf("cannot open template content, name:%s, %w", name, err)
 		}
 		size, err := buf.ReadFrom(tmplContent)
 		if err != nil {
-			panic(err)
+			return fmt.Errorf("cannot read template content, name:%s, %w", name, err)
 		}
 		tmpl, err := Templates.New(name).Parse(buf.String())
 		if err != nil {
-			panic(err)
+			return fmt.Errorf("cannot parse template, name:%s, %w", name, err)
 		}
 
 		logrus.Debugf("Found template: %s, size:%d", tmpl.Name(), size)
 	}
 
 	logrus.Debugf("Templates loading complete%s", Templates.DefinedTemplates())
+
+	return
 }
 
 // MustLookup wraps lookup function for the root template namespace
