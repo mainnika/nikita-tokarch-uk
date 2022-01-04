@@ -25,7 +25,7 @@ func (tw *TemplateWriter) SetHeader(rh *fasthttp.ResponseHeader) {
 // Write executes the template and writes result to the response writer
 func (tw *TemplateWriter) Write(w io.Writer, content interface{}) error {
 
-	template := templates.GetTemplateOf(content)
+	template := templates.MustGetTemplateOf(content)
 
 	return template.Execute(w, content)
 }
