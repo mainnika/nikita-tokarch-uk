@@ -1,6 +1,7 @@
 @use "./const.scss" as *;
 
 .kg-card {
+    width: auto;
     max-width: 70vw;
     padding: 0.2em;
     border-width: 2px;
@@ -10,8 +11,11 @@
     background-color: $main-color;
 }
 
-.kg-card img {
+.kg-card > * {
     vertical-align: top;
+}
+
+.kg-card img {
     border-radius: 0.2em;
 }
 
@@ -24,11 +28,9 @@
 
 .kg-code-card {
     background-color: #333;
-}
-
-.kg-code-card pre {
     text-shadow: none;
     overflow-x: auto;
+    width: 100%;
 
     li.L0,
     li.L1,

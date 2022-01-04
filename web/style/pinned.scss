@@ -5,10 +5,19 @@
     z-index: 1;
 }
 
+.pinned-container .blog-post-head {
+    display: none;
+}
+
 .pinned-container .blog-post-content > * {
     width: 80vw;
 }
+.pinned-container .blog-post-content > .kg-card {
+    width: auto;
+}
 
-.pinned-container .blog-post-head {
-    display: none;
+@media all and (max-width: 512px) {
+    .pinned-container .blog-post-content > * {
+        width: 90vw;
+    }
 }

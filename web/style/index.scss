@@ -1,11 +1,11 @@
 @use "./const.scss" as *;
 
 @use "./blog.scss";
-@use "./font.scss";
-@use "./kg.scss";
-@use "./menu.scss";
 @use "./pinned.scss";
+@use "./menu.scss";
 @use "./scroll.scss";
+@use "./kg.scss";
+@use "./font.scss";
 @use "./external.scss";
 
 body,
