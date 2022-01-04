@@ -1,24 +1,66 @@
 package templates
 
-import "html/template"
+import (
+	"html/template"
+	"net/url"
+	"sync"
+)
 
-// UseFuncs returns a func map with template helpers functions
-func UseFuncs() template.FuncMap {
+type Funcs struct {
+	Version string
+
+	compiledJSAppURL string
+
+	initOnce sync.Once
+}
+
+func (f *Funcs) init() {
+
+	jsAppURL, err := url.Parse(URLJSApp)
+	if err != nil {
+		panic(err)
+	}
+
+	{
+		q := jsAppURL.Query()
+		q.Add("version", f.Version)
+
+		jsAppURL.RawQuery = q.Encode()
+	}
+
+	f.compiledJSAppURL = jsAppURL.String()
+}
+
+func (f *Funcs) add(i int) int {
+	return i + 1
+}
+
+func (f *Funcs) sub(i int) int {
+	return i - 1
+}
+
+func (f *Funcs) getJSAppURL() string {
+
+	f.initOnce.Do(f.init)
+
+	return f.compiledJSAppURL
+}
+
+func (f *Funcs) getIndexURL() string {
+	return URLIndex
+}
+
+func (f *Funcs) getBlogURL() string {
+	return URLBlog
+}
+
+// Use returns a func map with template helpers functions
+func (f *Funcs) Use() template.FuncMap {
 	return template.FuncMap{
-		"add": func(i int) int {
-			return i + 1
-		},
-		"sub": func(i int) int {
-			return i - 1
-		},
-		"getJSAppURL": func() string {
-			return URLJSApp
-		},
-		"getIndexURL": func() string {
-			return URLIndex
-		},
-		"getBlogURL": func() string {
-			return URLBlog
-		},
+		"add":         f.add,
+		"sub":         f.sub,
+		"getJSAppURL": f.getJSAppURL,
+		"getIndexURL": f.getIndexURL,
+		"getBlogURL":  f.getBlogURL,
 	}
 }

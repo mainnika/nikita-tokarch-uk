@@ -21,13 +21,12 @@ import (
 var content embed.FS
 
 // List of compiled go-templates
-var Templates *template.Template
+var Templates *template.Template = template.New("")
 
 // Load embeded templates
-func Load() (err error) {
+func Load(funcs *Funcs) (err error) {
 
-	Templates = template.New("")
-	Templates.Funcs(UseFuncs())
+	Templates.Funcs(funcs.Use())
 
 	tmplNames, err := fs.Glob(content, "*.go.tmpl")
 	if err != nil {
