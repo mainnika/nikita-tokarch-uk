@@ -1,0 +1,14 @@
+@use "./const.scss" as *;
+
+.pinned-container {
+    background-color: $background-color;
+    z-index: 1;
+}
+
+.pinned-container .blog-post-content > * {
+    width: 80vw;
+}
+
+.pinned-container .blog-post-head {
+    display: none;
+}

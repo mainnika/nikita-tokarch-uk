@@ -1,0 +1,43 @@
+@use "./const.scss" as *;
+
+.kg-card {
+    max-width: 70vw;
+    padding: 0.2em;
+    border-width: 2px;
+    border-radius: 0.5em;
+    border-style: solid;
+    border-color: $main-color;
+    background-color: $main-color;
+}
+
+.kg-card img {
+    vertical-align: top;
+    border-radius: 0.2em;
+}
+
+.kg-card figcaption {
+    text-align: center;
+    color: $background-color;
+    text-shadow: none;
+    padding-top: 0.3em;
+}
+
+.kg-code-card {
+    background-color: #333;
+}
+
+.kg-code-card pre {
+    text-shadow: none;
+    overflow-x: auto;
+
+    li.L0,
+    li.L1,
+    li.L2,
+    li.L3,
+    li.L5,
+    li.L6,
+    li.L7,
+    li.L8 {
+        list-style-type: decimal !important;
+    }
+}

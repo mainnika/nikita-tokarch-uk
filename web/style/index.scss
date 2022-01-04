@@ -1,0 +1,61 @@
+@use "./const.scss" as *;
+
+@use "./blog.scss";
+@use "./font.scss";
+@use "./kg.scss";
+@use "./menu.scss";
+@use "./pinned.scss";
+@use "./scroll.scss";
+
+body,
+html {
+  font-size: $body-font-size;
+  text-shadow: $body-font-shadow;
+  color: $text-color;
+  background-color: $background-color;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  max-width: 70vw;
+  height: auto;
+}
+
+a.external::after {
+  content: "⃕";
+  font-size: 0.6em;
+  vertical-align: text-top;
+  padding-left: 0.1em;
+  display: inline-block;
+}
+
+.root-container {
+  padding-bottom: 0.5em;
+  margin-left: 3em;
+  margin-right: 3em;
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-container {
+  min-height: 95vh;
+}
+
+@media all and (max-width: 1024px) {
+  .root-container {
+    margin-left: 1.4em;
+    margin-right: 1.4em;
+  }
+}
+
+@media all and (max-width: 512px) {
+  .root-container {
+    margin-left: 0.8em;
+    margin-right: 0.8em;
+  }
+}
