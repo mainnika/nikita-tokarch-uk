@@ -23,6 +23,10 @@ type Content struct {
 	PostsPerPage int     `mapstructure:"postsPerPage"`
 }
 
+type Site struct {
+	YandexKey string `mapstructure:"yandexKey"`
+}
+
 // Config contains application configuration
 type Config struct {
 	Verbose string  `mapstructure:"verbose"`
@@ -30,6 +34,7 @@ type Config struct {
 	Addr    string  `mapstructure:"addr"`
 	Unix    string  `mapstructure:"unix"`
 	Content Content `mapstructure:"content"`
+	Site    Site    `mapstructure:"site"`
 }
 
 // initialize default values on app-start
@@ -49,6 +54,8 @@ func init() {
 	pflag.String("content.key", "22444f78447824223cefc48062", "ghost content api key")
 	pflag.String("content.pinned", "contact", "pinned page slug")
 	pflag.Int("content.postsPerPage", 5, "amount of posts per page")
+
+	pflag.String("site.yandexKey", "", "yandex analytics key")
 
 	pflag.Parse()
 

@@ -52,7 +52,7 @@ func main() {
 		logrus.Fatal(err)
 	}
 
-	templateFuncs := &templates.Funcs{Version: Version}
+	templateFuncs := &templates.Funcs{Version: Version, Site: config.Site}
 	err = templates.Load(templateFuncs)
 	if err != nil {
 		logrus.Fatal(err)

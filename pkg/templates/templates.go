@@ -18,6 +18,7 @@ import (
 //go:embed index.go.tmpl
 //go:embed menu.go.tmpl
 //go:embed post.go.tmpl
+//go:embed analytics.go.tmpl
 var content embed.FS
 
 // List of compiled go-templates
