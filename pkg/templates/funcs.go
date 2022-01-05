@@ -4,10 +4,13 @@ import (
 	"html/template"
 	"net/url"
 	"sync"
+
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/config"
 )
 
 type Funcs struct {
 	Version string
+	Site    config.Site
 
 	compiledJSAppURL string
 
@@ -54,6 +57,10 @@ func (f *Funcs) getBlogURL() string {
 	return URLBlog
 }
 
+func (f *Funcs) getYaKey() string {
+	return f.Site.YandexKey
+}
+
 // Use returns a func map with template helpers functions
 func (f *Funcs) Use() template.FuncMap {
 	return template.FuncMap{
@@ -62,5 +69,6 @@ func (f *Funcs) Use() template.FuncMap {
 		"getJSAppURL": f.getJSAppURL,
 		"getIndexURL": f.getIndexURL,
 		"getBlogURL":  f.getBlogURL,
+		"getYaKey":    f.getYaKey,
 	}
 }
