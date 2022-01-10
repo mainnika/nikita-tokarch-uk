@@ -1,5 +1,13 @@
 @use "./const.scss" as *;
 
+.kg-width-wide {
+    align-self: flex-start;
+}
+
+.kg-width-full {
+    align-self: flex-end;
+}
+
 .kg-card {
     width: auto;
     max-width: 70vw;

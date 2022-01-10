@@ -14,7 +14,6 @@
 .blog-post-head h1 {
     margin-block-start: 0.43em;
     margin-block-end: 0.43em;
-    font-family: $menu-font;
     font-size: 2em;
     font-weight: normal;
 }
@@ -50,6 +49,17 @@
 
 .blog-post-content > * {
     width: 50vw;
+}
+
+.blog-post-content > blockquote {
+    padding: 1.7em;
+    background: white;
+    border-left-style: double;
+    border-left-width: 0.4em;
+    border-left-color: $text-color;
+    border-right-style: double;
+    border-right-width: 0.4em;
+    border-right-color: $text-color;
 }
 
 @media all and (max-width: 512px) {
