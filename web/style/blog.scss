@@ -51,6 +51,17 @@
     width: 50vw;
 }
 
+.blog-post-content > blockquote {
+    padding: 1.7em;
+    background: white;
+    border-left-style: double;
+    border-left-width: 0.4em;
+    border-left-color: $text-color;
+    border-right-style: double;
+    border-right-width: 0.4em;
+    border-right-color: $text-color;
+}
+
 @media all and (max-width: 512px) {
     .blog-post-content > * {
         width: 90vw;
