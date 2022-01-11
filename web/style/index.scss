@@ -62,11 +62,19 @@ a.external::after {
     margin-left: 1.4em;
     margin-right: 1.4em;
   }
+
+  .columns-on-tablet {
+    flex-direction: column;
+  }
 }
 
 @media all and (max-width: 512px) {
   .root-container {
     margin-left: 0.8em;
     margin-right: 0.8em;
+  }
+
+  .columns-on-mobile {
+    flex-direction: column;
   }
 }
