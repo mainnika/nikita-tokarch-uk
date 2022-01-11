@@ -46,6 +46,7 @@
 .menu-nav {
     display: flex;
     list-style: none;
+    align-items: flex-end;
 }
 .menu-nav > li::before {
     content: "";
@@ -56,10 +57,6 @@
 }
 
 @media all and (max-width: 1024px) {
-    .menu-nav {
-        flex-direction: column;
-        align-items: flex-end;
-    }
     .menu-nav > li.menu-nav-li1::before {
         display: inline;
     }
@@ -69,9 +66,6 @@
 }
 
 @media all and (max-width: 512px) {
-    .menu {
-        flex-direction: column;
-    }
     .menu-nav {
         margin-top: 0.3em;
     }
