@@ -44,6 +44,7 @@ func (r *Routes) init() {
 	root.Get(templates.URLRoot, r.rootRedirect)
 	root.Get(templates.URLIndex, r.index)
 	root.Get(templates.URLBlog, r.blog)
+	root.Get(templates.URLSlug, r.slug)
 
 	r.router = router
 	r.handler = router.HandleRequest

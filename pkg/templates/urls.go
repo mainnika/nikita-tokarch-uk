@@ -4,6 +4,7 @@ const (
 	URLPostfix = "aspx"
 
 	URLRoot  = "/"
+	URLSlug  = "/<slug:[^/\\.]*>." + URLPostfix
 	URLIndex = "/index." + URLPostfix
 	URLBlog  = "/blog." + URLPostfix
 	URLPost  = "/post." + URLPostfix
