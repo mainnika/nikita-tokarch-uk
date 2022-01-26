@@ -1,21 +1,28 @@
 package routes
 
 import (
-	"net/http"
+	"bytes"
 
 	routing "github.com/jackwhelpton/fasthttp-routing/v2"
+	"github.com/valyala/fasthttp"
 
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/content"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/params"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
 )
 
-// rootRedirect redirects the root url to the index using http redirect
-func (r *Routes) rootRedirect(c *routing.Context) (err error) {
+// relativeRedirectBytes makes a relative redirect by using http Location header
+func (r *Routes) relativeRedirectBytes(c *routing.Context, location []byte, statusCode int) (err error) {
 
-	c.Redirect(templates.URLIndex, http.StatusFound)
+	c.Response.Header.SetCanonical([]byte(fasthttp.HeaderLocation), location)
+	c.Response.SetStatusCode(statusCode)
 
 	return
+}
+
+// rootRedirect redirects the root url to the index using http redirect
+func (r *Routes) rootRedirect(c *routing.Context) (err error) {
+	return r.relativeRedirectBytes(c, []byte(templates.URLIndex), fasthttp.StatusFound)
 }
 
 // index handler renders index data

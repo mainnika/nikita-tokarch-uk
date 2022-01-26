@@ -1,9 +1,11 @@
 package templates
 
 const (
+	URLPostfix = "aspx"
+
 	URLRoot  = "/"
-	URLIndex = "/index.aspx"
-	URLBlog  = "/blog.aspx"
-	URLPost  = "/post.aspx"
+	URLIndex = "/index." + URLPostfix
+	URLBlog  = "/blog." + URLPostfix
+	URLPost  = "/post." + URLPostfix
 	URLJSApp = "/js-bin/app.js"
 )
