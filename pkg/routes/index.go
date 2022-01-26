@@ -25,6 +25,25 @@ func (r *Routes) rootRedirect(c *routing.Context) (err error) {
 	return r.relativeRedirectBytes(c, []byte(templates.URLIndex), fasthttp.StatusFound)
 }
 
+// rootRedirect forcefully adds postfix to the url
+func (r *Routes) usePostfixForce(c *routing.Context) (err error) {
+
+	fullPath := c.Path()
+	if len(fullPath) <= 1 {
+		return c.Next()
+	}
+
+	dotIndex := bytes.LastIndexByte(fullPath, '.')
+	if dotIndex >= 0 {
+		return c.Next()
+	}
+
+	fullPath = append(fullPath, '.')
+	fullPath = append(fullPath, []byte(templates.URLPostfix)...)
+
+	return r.relativeRedirectBytes(c, fullPath, fasthttp.StatusFound)
+}
+
 // index handler renders index data
 func (r *Routes) index(c *routing.Context) (err error) {
 

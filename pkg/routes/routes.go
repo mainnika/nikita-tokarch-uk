@@ -37,6 +37,7 @@ func (r *Routes) init() {
 
 	router.Use(r.useTemplateWriter)
 	router.Use(r.useErrorHandler)
+	router.Use(r.usePostfixForce)
 	router.NotFound(r.errorNotFound)
 
 	root := router.Group(r.Base)
