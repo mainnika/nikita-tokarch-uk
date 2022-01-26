@@ -37,12 +37,14 @@ func (r *Routes) init() {
 
 	router.Use(r.useTemplateWriter)
 	router.Use(r.useErrorHandler)
+	router.Use(r.usePostfixForce)
 	router.NotFound(r.errorNotFound)
 
 	root := router.Group(r.Base)
 	root.Get(templates.URLRoot, r.rootRedirect)
 	root.Get(templates.URLIndex, r.index)
 	root.Get(templates.URLBlog, r.blog)
+	root.Get(templates.URLSlug, r.slug)
 
 	r.router = router
 	r.handler = router.HandleRequest
