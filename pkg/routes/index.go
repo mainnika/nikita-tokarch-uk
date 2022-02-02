@@ -38,8 +38,18 @@ func (r *Routes) usePostfixForce(c *routing.Context) (err error) {
 		return c.Next()
 	}
 
+	fullPath = bytes.TrimRightFunc(fullPath, func(r rune) bool {
+		switch r {
+		case '/':
+			return true
+		default:
+			return false
+		}
+	})
+
 	fullPath = append(fullPath, '.')
 	fullPath = append(fullPath, []byte(templates.URLPostfix)...)
+	fullPath = c.QueryArgs().AppendBytes(fullPath)
 
 	return r.relativeRedirectBytes(c, fullPath, fasthttp.StatusFound)
 }
