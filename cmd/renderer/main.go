@@ -9,10 +9,11 @@ import (
 	"github.com/spf13/viper"
 	"github.com/valyala/fasthttp"
 
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/templates"
+
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/config"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/v4api/httpclient"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/routes"
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
 )
 
 var Version = "nightly"
@@ -52,7 +53,7 @@ func main() {
 		logrus.Fatal(err)
 	}
 
-	templateFuncs := &templates.Funcs{Version: Version, Site: config.Site}
+	templateFuncs := &templates.Funcs{Version: Version, YandexKey: config.Site.YandexKey}
 	err = templates.Load(templateFuncs)
 	if err != nil {
 		logrus.Fatal(err)

@@ -21,10 +21,10 @@ import (
 //go:embed analytics.go.tmpl
 var content embed.FS
 
-// List of compiled go-templates
+// Templates is a container of compiled templates
 var Templates *template.Template = template.New("")
 
-// Load embeded templates
+// Load embedded templates
 func Load(funcs *Funcs) (err error) {
 
 	Templates.Funcs(funcs.Use())

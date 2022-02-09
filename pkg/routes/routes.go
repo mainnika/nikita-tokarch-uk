@@ -6,9 +6,10 @@ import (
 	routing "github.com/jackwhelpton/fasthttp-routing/v2"
 	"github.com/valyala/fasthttp"
 
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/templates"
+
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/config"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost"
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
 )
 
 // Routes is the main handler that contains all routes handlers

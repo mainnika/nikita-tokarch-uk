@@ -4,13 +4,12 @@ import (
 	"html/template"
 	"net/url"
 	"sync"
-
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/config"
 )
 
 type Funcs struct {
 	Version string
-	Site    config.Site
+
+	YandexKey string
 
 	compiledJSAppURL string
 
@@ -58,7 +57,7 @@ func (f *Funcs) getBlogURL() string {
 }
 
 func (f *Funcs) getYaKey() string {
-	return f.Site.YandexKey
+	return f.YandexKey
 }
 
 // Use returns a func map with template helpers functions

@@ -2,6 +2,7 @@
 !cmd
 !nginx
 !pkg
+!templates
 !web
 !go.mod
 !go.sum

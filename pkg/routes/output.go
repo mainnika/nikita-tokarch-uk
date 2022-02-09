@@ -6,7 +6,7 @@ import (
 	routing "github.com/jackwhelpton/fasthttp-routing/v2"
 	"github.com/valyala/fasthttp"
 
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/templates"
 )
 
 var _ routing.DataWriter = (*TemplateWriter)(nil)

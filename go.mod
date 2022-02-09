@@ -2,7 +2,10 @@ module code.tokarch.uk/mainnika/nikita-tokarch-uk
 
 go 1.17
 
+replace code.tokarch.uk/mainnika/nikita-tokarch-uk/templates => ./templates
+
 require (
+	code.tokarch.uk/mainnika/nikita-tokarch-uk/templates v0.0.0-00010101000000-000000000000
 	github.com/jackwhelpton/fasthttp-routing/v2 v2.0.0
 	github.com/mailru/easyjson v0.7.7
 	github.com/sirupsen/logrus v1.8.1

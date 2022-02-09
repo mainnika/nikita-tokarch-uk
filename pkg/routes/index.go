@@ -6,9 +6,10 @@ import (
 	routing "github.com/jackwhelpton/fasthttp-routing/v2"
 	"github.com/valyala/fasthttp"
 
+	"code.tokarch.uk/mainnika/nikita-tokarch-uk/templates"
+
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/content"
 	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/ghost/params"
-	"code.tokarch.uk/mainnika/nikita-tokarch-uk/pkg/templates"
 )
 
 // relativeRedirectBytes makes a relative redirect by using http Location header

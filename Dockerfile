@@ -9,6 +9,8 @@ RUN dnf install -yq golang
 
 COPY go.mod .
 COPY go.sum .
+COPY templates/go.mod templates/go.mod
+COPY templates/go.sum templates/go.sum
 
 RUN --mount=type=cache,id=gopath,target=${GOPATH} \
     go mod \
@@ -18,6 +20,7 @@ ARG APP_VERSION=containerized
 
 COPY cmd cmd
 COPY pkg pkg
+COPY templates templates
 
 RUN --mount=type=cache,id=gopath,target=${GOPATH} \
     go build \
