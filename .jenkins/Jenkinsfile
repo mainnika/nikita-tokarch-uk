@@ -40,6 +40,7 @@ pipeline {
                 dir("${WS_DIST}") {
                     sh """
                         curl -fsSL -O "${HELM_DOWNLOAD_URL}";
+                        mkdir -p "${env.WORKSPACE}/${WS_BIN}";
                         tar xfz -C "${env.WORKSPACE}/${WS_BIN}" *;
                         ls -lah "${env.WORKSPACE}/${WS_BIN}/linux-amd64/helm";
                     """
