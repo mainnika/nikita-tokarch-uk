@@ -74,6 +74,7 @@ pipeline {
                         sh """
                             "${env.WORKSPACE}/${WS_BIN}/linux-amd64/helm" upgrade ${params.RELEASE_NAME} * \
                               --namespace ${params.RELEASE_NAMESPACE} \
+                              --install \
                               --create-namespace \
                               --dependency-update \
                               --reset-values \
