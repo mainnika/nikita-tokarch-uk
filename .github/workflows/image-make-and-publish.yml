@@ -29,6 +29,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v3
 
@@ -75,6 +78,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
 
       - name: Trigger release job
         if: ${{ success() && github.ref_name == 'main' && github.event_name != 'pull_request' && !github.event.repository.private }}
