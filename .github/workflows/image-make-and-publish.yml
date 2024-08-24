@@ -81,7 +81,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
 
       - name: Trigger release job
-        if: ${{ success() && github.ref_name == 'main' && github.event_name != 'pull_request' && !github.event.repository.private }}
+        if: false
+        # if: ${{ success() && github.ref_name == 'main' && github.event_name != 'pull_request' && !github.event.repository.private }}
         uses: toptal/jenkins-job-trigger-action@master
         with:
           jenkins_url: ${{ secrets.JENKINS_URL }}
