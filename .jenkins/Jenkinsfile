@@ -1,10 +1,10 @@
-def HELM_DOWNLOAD_URL = "https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz"
+def HELM_DOWNLOAD_URL = "https://get.helm.sh/helm-v3.14.0-linux-amd64.tar.gz"
 def WS_DIST = ".dist"
 def WS_BIN = ".bin"
 def WS_SCM = ".scm"
 
 pipeline {
-    agent { label "k8s" }
+    agent { label "kube0" }
 
     parameters {
         string(
